@@ -1,0 +1,28 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+local function applyLeg()
+    local rightLeg = character:FindFirstChild("Right Leg") 
+        or character:FindFirstChild("RightLowerLeg")
+
+    if not rightLeg then return end
+
+    -- If it's a MeshPart / part with SpecialMesh
+    local mesh = rightLeg:FindFirstChildOfClass("SpecialMesh")
+    if mesh then
+        mesh.TextureId = "rbxassetid://139607718"
+    end
+
+    -- If it's a MeshPart directly
+    if rightLeg:IsA("MeshPart") then
+        rightLeg.TextureID = "rbxassetid://139607718"
+    end
+end
+
+applyLeg()
+
+player.CharacterAdded:Connect(function(char)
+    character = char
+    task.wait(1)
+    applyLeg()
+end)
